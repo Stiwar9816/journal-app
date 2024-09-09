@@ -8,7 +8,7 @@ const srcset = (image, size, rows = 1, cols = 1) => {
     };
 }
 
-export const ImageGallery = ({ images }) => {
+export const ImageGallery = ({ images = [] }) => {
     return (
         <ImageList
             sx={{ borderRadius: 2, width: '100%', height: 500 }}

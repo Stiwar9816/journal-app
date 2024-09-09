@@ -1,10 +1,10 @@
 import { useMemo, useEffect, useRef } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { SaveOutlined, UploadOutlined } from "@mui/icons-material"
+import { SaveOutlined, UploadOutlined, DeleteOutline } from "@mui/icons-material"
 import { Button, Grid2, IconButton, TextField, Typography } from "@mui/material"
 import Swal from "sweetalert2"
 import 'sweetalert2/dist/sweetalert2.css'
-import { setActiveNote, startUploadingFiles, startSavingNote } from "../../store"
+import { setActiveNote, startUploadingFiles, startSavingNote, startDeletingNote } from "../../store"
 import { ImageGallery } from "../components"
 import { useForm } from "../../hooks"
 
@@ -34,16 +34,20 @@ export const NoteView = () => {
     }
 
     const onFileInputChange = ({ target }) => {
-        if( target.files === 0 ) return;
-        dispatch( startUploadingFiles( target.files ));
+        if (target.files === 0) return;
+        dispatch(startUploadingFiles(target.files));
     }
 
+    const onDelete = () => {
+        dispatch(startDeletingNote())
+    }
     return (
         <>
             <Grid2 className='animate__animated animate__fadeIn animate__faster' container direction={"row"} justifyContent={"space-between"} alignContent={"center"} sx={{ mb: 1, mt: 2 }}>
                 <Grid2>
-                    <Typography fontSize={39} fontWeight={"ligth"}>{dateString}</Typography>
+                    <Typography fontSize={28} fontWeight={"ligth"}>Fecha de creación: {dateString}</Typography>
                 </Grid2>
+
                 <Grid2>
                     <input type="file" ref={fileInputRef} multiple onChange={onFileInputChange} style={{ display: 'none' }} />
                     <IconButton color="primary.main" onClick={() => fileInputRef.current.click()} disabled={isSaving}>
@@ -52,6 +56,10 @@ export const NoteView = () => {
                     <Button onClick={onSaveNote} color="primary.main" variant="text" sx={{ p: 1 }}>
                         <SaveOutlined sx={{ fontSize: 24, mr: 1 }} />
                         Guardar
+                    </Button>
+                    <Button onClick={onDelete} sx={{ my: 2 }} color="error" variant="text">
+                        <DeleteOutline />
+                        Borrar
                     </Button>
                 </Grid2>
             </Grid2>
@@ -80,7 +88,7 @@ export const NoteView = () => {
             </Grid2>
 
             {/* Image Gallery */}
-            <ImageGallery images={note.imageUrls}/>
+            < ImageGallery images={note.imageUrls} />
         </>
     )
 }
