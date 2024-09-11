@@ -28,7 +28,7 @@ export const LoginForm = () => {
     }
 
     return (
-        <form onSubmit={onSubmit} className='animate__animated animate__fadeIn animate__faster'>
+        <form onSubmit={onSubmit} className='animate__animated animate__fadeIn animate__faster' aria-label='submit_form'>
             <Grid2 container>
                 {/* TextFields */}
                 <Grid2 size={{ xs: 12 }}>
@@ -55,6 +55,7 @@ export const LoginForm = () => {
                         name='password'
                         value={password}
                         onChange={onInputChange}
+                        inputProps={{'data-testid':'password'}}
                     />
                 </Grid2>
             </Grid2>
@@ -64,12 +65,12 @@ export const LoginForm = () => {
                     <Alert severity='error'> {errorMessage} </Alert>
                 </Grid2>
                 <Grid2 size={{ xs: 12, sm: 6 }}>
-                    <Button disabled={isAuthenticated} variant="contained" fullWidth type='submit'>
+                    <Button disabled={isAuthenticated} variant="contained" fullWidth type='submit' aria-label='btn_login'>
                         Iniciar sesión
                     </Button>
                 </Grid2>
                 <Grid2 size={{ xs: 12, sm: 6 }}>
-                    <Button disabled={isAuthenticated} variant="contained" fullWidth onClick={onGoogleSignIn}>
+                    <Button disabled={isAuthenticated} variant="contained" fullWidth onClick={onGoogleSignIn} aria-label='btn_google'>
                         <Google sx={{ mr: 1 }} />
                         Google
                     </Button>

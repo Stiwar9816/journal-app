@@ -1,5 +1,6 @@
 export const fileUpload = async (file) => {
-    if (!file) throw new Error('No existe ningun archivo')
+    // if (!file) throw new Error('No existe ningun archivo')
+    if (!file) return null
     const cloudUrl = 'https://api.cloudinary.com/v1_1/dwtf5ftav/upload'
     const formData = new FormData()
 
@@ -14,6 +15,7 @@ export const fileUpload = async (file) => {
         const cloudRes = await res.json()
         return cloudRes.secure_url
     } catch (error) {
-        throw new Error(error.message)
+        return null
+        // throw new Error(error.message)
     }
 }
